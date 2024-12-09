@@ -3,6 +3,7 @@
 using namespace std;
 
 int graph[1025][1025];
+int dp[1025][1025];
 
 int main() {
 	ios_base::sync_with_stdio(0);
@@ -12,14 +13,11 @@ int main() {
 	int n, m;
 	cin >> n >> m;
 
-	// save partial sum in 'graph' array
+	// get inputs & complete 'graph', 'dp' array
 	for (int i = 1; i <= n; i++) {
-		int tmp = 0;
 		for (int j = 1; j <= n; j++) {
-			int k;
-			cin >> k;
-			tmp += k;
-			graph[i][j] = tmp;
+			cin >> graph[i][j];
+			dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + graph[i][j];
 		}
 	}
 
@@ -27,11 +25,9 @@ int main() {
 		int x1, y1, x2, y2;
 		cin >> x1 >> y1 >> x2 >> y2;
 
-		int res = 0;
-		for (int j = x1; j <= x2; j++) {
-			res += (graph[j][y2] - graph[j][y1 - 1]);
-		}
-
+		int res;
+		res = dp[x2][y2] - dp[x2][y1 - 1] - dp[x1 - 1][y2] + dp[x1 - 1][y1 - 1];
+		
 		cout << res << "\n";
 	}
 
