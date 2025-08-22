@@ -4,6 +4,10 @@ using namespace std;
 int arr[200001][28] = {0, };
 
 int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
     string s;
     int q;
     
@@ -12,7 +16,7 @@ int main() {
     for (int i = 0; i < s.length(); i++) {
         char cur_c = s[i];
 
-        for (int j = 0; j < 28; j++) {
+        for (int j = 0; j < 26; j++) {
             if (cur_c - 'a' == j) arr[i + 1][j] = arr[i][j] + 1;
             else arr[i + 1][j] = arr[i][j];
         }
