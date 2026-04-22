@@ -1,0 +1,18 @@
+-- 코드를 작성해주세요
+SELECT 
+    E.ID, 
+    (CASE
+        WHEN T.P_RANK * 100 <= 25 THEN 'CRITICAL'
+        WHEN T.P_RANK * 100 <= 50 THEN 'HIGH'
+        WHEN T.P_RANK * 100 <= 75 THEN 'MEDIUM'
+        ELSE 'LOW'
+    END) AS COLONY_NAME
+FROM ECOLI_DATA E
+JOIN (
+    SELECT 
+        ID,
+        PERCENT_RANK() OVER (ORDER BY SIZE_OF_COLONY DESC) AS P_RANK
+    FROM ECOLI_DATA
+) T
+    ON E.ID = T.ID
+ORDER BY ID
